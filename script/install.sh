@@ -17,7 +17,7 @@
 
 pacman -S git
 git clone https://aur.archlinux.org/yay-bin
-cd yay-bin
+cd yay-bin || exit
 
 # MAKE SURE YOU ARE THE OWNER OF YAY-BIN (check using ls -al)
 # IF YOU'RE NOT THE OWNER:
@@ -81,7 +81,7 @@ hyprctl
 
 # ====={ wlogout }===== wlogout is a simple Wayland logout menu for sway. It is a fork of swaylock-effects with the addition of a logout menu.
 git clone https://github.com/ArtsyMacaw/wlogout.git
-cd wlogout
+cd wlogout || exit
 meson build
 ninja -C build
 sudo ninja -C build install
