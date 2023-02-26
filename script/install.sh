@@ -20,22 +20,22 @@ git clone https://aur.archlinux.org/yay-bin
 cd yay-bin
 
 # MAKE SURE YOU ARE THE OWNER OF YAY-BIN (check using ls -al)
-# IF YOU'RE NOT THE OWNER
-chown username: yay-bin/ -R
+# IF YOU'RE NOT THE OWNER:
+#chown username: yay-bin/ -R
 
 makepkg -si
 
-# lightdm is the display manager
-yay -S hyprland-bin polkit-gnome ffmpeg neovim viewnior dunst rofi pavucontrol thunar starship wl-clipboard wf-recorder swaybg grimblast-git ffmpegthumbnailer tumbler playerctl noise-suppression-for-voice thunar-archive-plugin kitty waybar-hyprland wlogout swaylock-effects sddm-git nwg-look-bin nordic-theme papirus-icon-theme pamixer lightdm
+# We no longer need the yay-bin directory as it has already been installed on our system, we can remove it like so:
+rm -rf yay-bin/
+
+# LightDM is the display manager
+yay -S hyprland-bin polkit-gnome ffmpeg neovim viewnior dunst rofi pavucontrol thunar starship wl-clipboard wf-recorder swaybg grimblast-git ffmpegthumbnailer tumbler playerctl noise-suppression-for-voice thunar-archive-plugin kitty waybar-hyprland wlogout swaylock-effects sddm-git nwg-look-bin nordic-theme papirus-icon-theme pamixer lightdm mason
 
 sudo pacman -S lightdm-gtk-greeter
 
-yay Syu #Check for updates like apt get update
+yay Syu # Check for updates like `apt get update`
 
 reboot
-
-#We no longer need the yay-bin directory as it has already been installed on our system, we can remove it like so:
-rm -rf yay-bin/
 
 # ====={ Configure LightDM }=====
 
@@ -77,4 +77,11 @@ reboot
 export WLR_RENDERER_ALLOW_SOFTWARE=1
 
 # ====={ hyprctl }===== https://youtu.be/sDmLCBI9L4E?t=4573
-hyperctl
+hyprctl
+
+# ====={ wlogout }===== wlogout is a simple Wayland logout menu for sway. It is a fork of swaylock-effects with the addition of a logout menu.
+git clone https://github.com/ArtsyMacaw/wlogout.git
+cd wlogout
+meson build
+ninja -C build
+sudo ninja -C build install
