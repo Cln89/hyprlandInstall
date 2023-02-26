@@ -13,7 +13,7 @@
 
 # Install...
 
-# ====={ Dependencies }=====
+# ====={ Dependencies for package manager }=====
 
 pacman -S git
 git clone https://aur.archlinux.org/yay-bin
@@ -28,10 +28,20 @@ makepkg -si
 # We no longer need the yay-bin directory as it has already been installed on our system, we can remove it like so:
 rm -rf yay-bin/
 
-# LightDM is the display manager
-yay -S hyprland-bin polkit-gnome ffmpeg neovim viewnior dunst rofi pavucontrol thunar starship wl-clipboard wf-recorder swaybg grimblast-git ffmpegthumbnailer tumbler playerctl noise-suppression-for-voice thunar-archive-plugin kitty waybar-hyprland wlogout swaylock-effects sddm-git nwg-look-bin nordic-theme papirus-icon-theme pamixer lightdm mason
-
-sudo pacman -S lightdm-gtk-greeter
+# ====={ Install }=====
+# Install the following packages:
+# Environment: hyprland-bin, polkit-gnome, swaylock-effects, dunst,
+#              sddm-git, nwg-look-bin, nordic-theme, papirus-icon-theme
+# Utilities: ffmpeg, neovim, viewnior, rofi, pavucontrol, thunar,
+#            starship, wl-clipboard, wf-recorder, swaybg, grimblast-git,
+#            ffmpegthumbnailer, tumbler, playerctl, noise-suppression-for-voice,
+#            thunar-archive-plugin, kitty, waybar-hyprland, wlogout, pamixer
+yay -S hyprland-bin polkit-gnome ffmpeg neovim viewnior       \
+rofi pavucontrol thunar starship wl-clipboard wf-recorder     \
+swaybg grimblast-git ffmpegthumbnailer tumbler playerctl      \
+noise-suppression-for-voice thunar-archive-plugin kitty       \
+waybar-hyprland wlogout swaylock-effects sddm-git pamixer     \
+nwg-look-bin nordic-theme papirus-icon-theme dunst
 
 yay Syu # Check for updates like `apt get update`
 
