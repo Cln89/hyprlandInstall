@@ -1,4 +1,6 @@
-# Hyprland config files from Titus
+# Hyprland config files from Chris Titus Tech
+
+This repository should not be used to install hyprland, as this is still VERY experimental and will give you issues.
 
 ![Screenshot](https://github.com/ChrisTitusTech/hyprland-titus/raw/main/hyprland-titus.png)
 
