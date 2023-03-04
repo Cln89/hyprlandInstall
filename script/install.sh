@@ -16,17 +16,21 @@
 # ====={ Dependencies for package manager }=====
 
 pacman -S git
-git clone https://aur.archlinux.org/yay-bin
-cd yay-bin || exit
+git clone https://aur.archlinux.org/paru-bin
+cd paru-bin || exit
 
 # MAKE SURE YOU ARE THE OWNER OF YAY-BIN (check using ls -al)
 # IF YOU'RE NOT THE OWNER:
 #chown username: yay-bin/ -R
+if [$(systemctl get-default) != "graphical.target"] ; 
+    systemctl set-default graphical.target; fi
 
 makepkg -si
 
-# We no longer need the yay-bin directory as it has already been installed on our system, we can remove it like so:
-rm -rf yay-bin/
+cd ../
+
+# We no longer need the paru-bin directory as it has already been installed on our system, we can remove it like so:
+rm -rf paru-bin
 
 # ====={ Install }=====
 # Install the following packages:
@@ -36,20 +40,20 @@ rm -rf yay-bin/
 #            starship, wl-clipboard, wf-recorder, swaybg, grimblast-git,
 #            ffmpegthumbnailer, tumbler, playerctl, noise-suppression-for-voice,
 #            thunar-archive-plugin, kitty, waybar-hyprland, wlogout, pamixer
-yay -S hyprland-bin polkit-gnome ffmpeg neovim viewnior       \
+paru hyprland-bin polkit-gnome ffmpeg neovim viewnior       \
 rofi pavucontrol thunar starship wl-clipboard wf-recorder     \
 swaybg grimblast-git ffmpegthumbnailer tumbler playerctl      \
 noise-suppression-for-voice thunar-archive-plugin kitty       \
 waybar-hyprland wlogout swaylock-effects sddm-git pamixer     \
-nwg-look-bin nordic-theme papirus-icon-theme dunst
+nwg-look-bin nordic-theme papirus-icon-theme dunst meson      \
+ninja firefox
 
-yay Syu # Check for updates like `apt get update`
+paru # Check for updates like `apt get update`
 
-reboot
+# reboot
 
-# ====={ Configure LightDM }=====
-
-nano /etc/lightdm/lightdm.conf
+# ====={ Configure SDDM }=====
+nano /etc/sddm/sddm.cfg
 
 # Uncomment and change:
 # > user-session=hyprland
@@ -59,35 +63,32 @@ nano /etc/lightdm/lightdm.conf
 sudo groupadd autologin
 usermod -aG autologin username
 
-sudo systemctl enable lightdm
+sudo systemctl enable sddm
 
-# Check if your sys control default is graphical
-sudo systemctl get-default
+#sudo systemctl get-default
 
 # If not graphical
-sudo systemctl set-default graphical.target
-
-reboot
+#sudo systemctl set-default graphical.target
 
 # You should see a login GUI when rebooted
 
 # ====={ Download dotfiles (configuration stuff) }=====
 
-git clone https://github.com/ChrisTitusTech/hyprland-titus%60
 rename .config/ .tempconfig/ .config/
-mv hyprland-titus/dotfiles/.config/ ./
+mv hyprland-script/dotconfig/.config/ ./
 
 git clone https://github.com/linuxmobile/hyprland-dots
 mv hyprland-dots/.local ./
 
-reboot
+#reboot
 
 # ====={ .env vars }=====
 
 export WLR_RENDERER_ALLOW_SOFTWARE=1
 
 # ====={ hyprctl }===== https://youtu.be/sDmLCBI9L4E?t=4573
-hyprctl
+# maybe use hyperctl later for more configuration
+#hyprctl
 
 # ====={ wlogout }===== wlogout is a simple Wayland logout menu for sway. It is a fork of swaylock-effects with the addition of a logout menu.
 git clone https://github.com/ArtsyMacaw/wlogout.git
