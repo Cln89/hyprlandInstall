@@ -21,17 +21,17 @@ cd paru-bin || exit
 
 # MAKE SURE YOU ARE THE OWNER OF YAY-BIN (check using ls -al)
 # IF YOU'RE NOT THE OWNER:
-#chown username: yay-bin/ -R
-if [$(systemctl get-default) != "graphical.target"] ; 
-    systemctl set-default graphical.target; fi
+#chown username: paru-bin/ -R
+pacman -Syu base-devel --noconfirm # Install base-devel, without confirmation. This is required for makepkg to work.
+makepkg -si --noconfirm # Install paru, without confirmation. This will be your new package manager.
+cd ../ || exit # Go back to the parent directory
 
-makepkg -si
+rm -rf paru-bin # Remove the paru-bin directory, and all of its contents. As we no longer need it.
 
-cd ../
-
-# We no longer need the paru-bin directory as it has already been installed on our system, we can remove it like so:
-rm -rf paru-bin
-
+# Sets the default target to graphical.target, if it wasn't set already.
+if [ $(systemctl get-default) != "graphical.target" ] ;
+    then systemctl set-default graphical.target;
+fi
 # ====={ Install }=====
 # Install the following packages:
 # Environment: hyprland-bin, polkit-gnome, swaylock-effects, dunst,
@@ -53,7 +53,7 @@ paru # Check for updates like `apt get update`
 # reboot
 
 # ====={ Configure SDDM }=====
-nano /etc/sddm/sddm.cfg
+# nano /etc/sddm/sddm.cfg
 
 # Uncomment and change:
 # > user-session=hyprland
